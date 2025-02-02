@@ -1,70 +1,249 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Funny Form Page</title>
+    <title>Playful Login Form</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+        
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f8ff;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
+            overflow: hidden;
         }
+
         .form-container {
-            background-color: #fff;
-            border-radius: 10px;
-            padding: 30px;
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
             text-align: center;
+            transform: translateY(0);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            width: 400px;
         }
+
+        .form-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.25);
+        }
+
+        h2 {
+            color: #2d3436;
+            margin-bottom: 30px;
+            font-size: 2em;
+            position: relative;
+            animation: titleFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes titleFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .input-group {
+            position: relative;
+            margin: 25px 0;
+        }
+
         input {
-            display: block;
-            margin: 10px auto;
-            padding: 10px;
-            width: 80%;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            outline: none;
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid transparent;
+            border-radius: 30px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
         }
+
         input:focus {
-            border-color: #6a5acd;
+            outline: none;
+            border-color: #6c5ce7;
+            background: white;
+            box-shadow: 0 6px 20px rgba(108, 92, 231, 0.2);
         }
+
+        input::placeholder {
+            color: #b2bec3;
+        }
+
         #submit-btn {
-            background-color: #6a5acd;
+            background: linear-gradient(45deg, #6c5ce7, #a66efa);
             color: white;
-            padding: 10px 20px;
+            padding: 15px 40px;
             border: none;
-            border-radius: 5px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 600;
             cursor: pointer;
-            transition: 0.3s;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        #submit-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(108, 92, 231, 0.4);
+        }
+
+        #submit-btn:active {
+            transform: scale(0.95);
+        }
+
+        .particles {
+            position: absolute;
+            pointer-events: none;
+        }
+
+        @keyframes particleMove {
+            from { transform: translate(0, 0); opacity: 1; }
+            to { transform: translate(var(--x), var(--y)); opacity: 0; }
+        }
+
+        .floating-bg {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-100vh) rotate(360deg); }
+        }
+
+        .error-message {
+            color: #ff7675;
+            font-size: 0.9em;
+            margin-top: 10px;
+            display: none;
+            animation: shake 0.4s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(10px); }
+            75% { transform: translateX(-10px); }
+        }
+
+        .ripple {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.4);
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            border-radius: 50%;
+            animation: rippleEffect 0.6s linear;
+        }
+
+        @keyframes rippleEffect {
+            0% { width: 0; height: 0; opacity: 1; }
+            100% { width: 400px; height: 400px; opacity: 0; }
         }
     </style>
 </head>
 <body>
+    <div class="floating-bg" style="left: 10%; animation-delay: 0s"></div>
+    <div class="floating-bg" style="left: 30%; animation-delay: 2s"></div>
+    <div class="floating-bg" style="left: 70%; animation-delay: 5s"></div>
+
     <div class="form-container">
-        <h2>Login Form</h2>
-        <input type="text" id="user-id" placeholder="User ID">
-        <input type="password" id="password" placeholder="Password">
-        <button id="submit-btn">Submit</button>
+        <h2>🌟 Welcome Back! 🌟</h2>
+        <div class="input-group">
+            <input type="text" id="user-id" placeholder="User ID" autocomplete="off">
+        </div>
+        <div class="input-group">
+            <input type="password" id="password" placeholder="Password">
+        </div>
+        <div class="error-message">Please fill in all fields!</div>
+        <button id="submit-btn">Let's Go!</button>
     </div>
 
     <script>
         const submitBtn = document.getElementById('submit-btn');
         const userIdInput = document.getElementById('user-id');
         const passwordInput = document.getElementById('password');
+        const errorMessage = document.querySelector('.error-message');
 
-        submitBtn.addEventListener('mouseover', () => {
+        // Button hover effect
+        submitBtn.addEventListener('mouseover', (e) => {
             if (userIdInput.value === "" || passwordInput.value === "") {
-                const maxX = window.innerWidth - submitBtn.offsetWidth;
-                const maxY = window.innerHeight - submitBtn.offsetHeight;
-                const newX = Math.random() * maxX;
-                const newY = Math.random() * maxY;
-                submitBtn.style.position = 'absolute';
+                errorMessage.style.display = 'block';
+                submitBtn.style.background = 'linear-gradient(45deg, #ff7675, #d63031)';
+                submitBtn.style.animation = 'shake 0.4s ease';
+                setTimeout(() => {
+                    submitBtn.style.animation = '';
+                }, 400);
+
+                const rect = submitBtn.getBoundingClientRect();
+                const newX = Math.random() * (window.innerWidth - rect.width);
+                const newY = Math.random() * (window.innerHeight - rect.height);
+                submitBtn.style.position = 'fixed';
                 submitBtn.style.left = `${newX}px`;
                 submitBtn.style.top = `${newY}px`;
             }
+        });
+
+        // Ripple effect
+        submitBtn.addEventListener('click', function(e) {
+            let ripple = document.createElement('div');
+            ripple.className = 'ripple';
+            ripple.style.left = e.clientX - this.offsetLeft + 'px';
+            ripple.style.top = e.clientY - this.offsetTop + 'px';
+            this.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 600);
+        });
+
+        // Particle effect
+        document.addEventListener('mousemove', (e) => {
+            if (userIdInput.value === "" || passwordInput.value === "") {
+                const particles = document.createElement('div');
+                particles.className = 'particles';
+                particles.style.left = e.clientX + 'px';
+                particles.style.top = e.clientY + 'px';
+                
+                const colors = ['#6c5ce7', '#ff7675', '#00cec9', '#a66efa'];
+                particles.style.background = colors[Math.floor(Math.random() * colors.length)];
+                
+                const size = Math.random() * 10 + 5;
+                particles.style.width = size + 'px';
+                particles.style.height = size + 'px';
+                particles.style.borderRadius = '50%';
+                
+                const animation = particles.animate([{
+                    transform: 'translate(0, 0)',
+                    opacity: 1
+                }, {
+                    transform: `translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px)`,
+                    opacity: 0
+                }], {
+                    duration: 1000,
+                    easing: 'ease-out'
+                });
+                
+                animation.onfinish = () => particles.remove();
+                document.body.appendChild(particles);
+            }
+        });
+
+        // Reset styles on input
+        [userIdInput, passwordInput].forEach(input => {
+            input.addEventListener('input', () => {
+                if (input.value !== "") {
+                    errorMessage.style.display = 'none';
+                    submitBtn.style.background = 'linear-gradient(45deg, #6c5ce7, #a66efa)';
+                }
+            });
         });
     </script>
 </body>
